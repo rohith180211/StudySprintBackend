@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: StudySprint
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/studysprint
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  jwt:
+    secret: "change-this-to-a-long-random-secret-at-least-32-chars"
+    expiration-minutes: 120

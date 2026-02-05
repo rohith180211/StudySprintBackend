@@ -30,5 +30,6 @@ management:
 
 app:
   jwt:
-    secret: "change-this-to-a-long-random-secret-at-least-32-chars"
-    expiration-minutes: 120
+    secret: "studysprint-super-secret-key-studysprint-123456"
+    expiration-ms: 86400000 # 24 hours
+

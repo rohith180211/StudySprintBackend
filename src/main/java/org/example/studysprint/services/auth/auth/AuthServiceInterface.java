@@ -1,4 +1,4 @@
-package org.example.studysprint.services.auth;
+package org.example.studysprint.services.auth.auth;
 
 import org.example.studysprint.dto.auth.LoginRequest;
 import org.example.studysprint.dto.auth.LoginResponse;

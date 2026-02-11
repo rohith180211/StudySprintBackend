@@ -7,7 +7,7 @@ import org.example.studysprint.dto.auth.LoginRequest;
 import org.example.studysprint.dto.auth.LoginResponse;
 import org.example.studysprint.dto.auth.RegisterRequest;
 import org.example.studysprint.dto.user.UserProfileResponse;
-import org.example.studysprint.services.auth.AuthServiceInterface;
+import org.example.studysprint.services.auth.auth.AuthServiceInterface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

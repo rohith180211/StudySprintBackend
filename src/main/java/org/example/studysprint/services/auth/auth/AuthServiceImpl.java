@@ -1,4 +1,4 @@
-package org.example.studysprint.services.auth.impl;
+package org.example.studysprint.services.auth.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.example.studysprint.config.JwtUtil;
@@ -9,7 +9,6 @@ import org.example.studysprint.dto.user.UserProfileResponse;
 import org.example.studysprint.model.Role;
 import org.example.studysprint.model.User;
 import org.example.studysprint.repository.UserRepository;
-import org.example.studysprint.services.auth.AuthServiceInterface;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -5,12 +5,16 @@ import org.example.studysprint.config.JwtUtil;
 import org.example.studysprint.dto.auth.LoginRequest;
 import org.example.studysprint.dto.auth.LoginResponse;
 import org.example.studysprint.dto.auth.RegisterRequest;
+import org.example.studysprint.dto.user.UserProfileResponse;
 import org.example.studysprint.model.Role;
 import org.example.studysprint.model.User;
 import org.example.studysprint.repository.UserRepository;
 import org.example.studysprint.services.auth.AuthServiceInterface;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 
 @Service
@@ -53,5 +57,25 @@ public class AuthServiceImpl implements AuthServiceInterface {
         );
 
         return new LoginResponse(token);
+    }
+
+    @Override
+    public UserProfileResponse getCurrentUserProfile() {
+        Long userId = (Long) Objects.requireNonNull(SecurityContextHolder
+                        .getContext()
+                        .getAuthentication())
+                .getPrincipal();
+
+        assert userId != null;
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return UserProfileResponse.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .points(user.getPoints())
+                .currentStreak(user.getCurrentStreak())
+                .build();
     }
 }

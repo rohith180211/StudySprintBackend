@@ -6,12 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.studysprint.dto.auth.LoginRequest;
 import org.example.studysprint.dto.auth.LoginResponse;
 import org.example.studysprint.dto.auth.RegisterRequest;
+import org.example.studysprint.dto.user.UserProfileResponse;
 import org.example.studysprint.services.auth.AuthServiceInterface;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,5 +26,11 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileResponse> getProfile() {
+        return ResponseEntity.ok(authService.getCurrentUserProfile());
+    }
+
 
 }

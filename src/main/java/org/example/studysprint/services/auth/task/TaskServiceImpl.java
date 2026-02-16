@@ -13,6 +13,7 @@ import org.example.studysprint.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -65,9 +66,26 @@ public class TaskServiceImpl implements TaskServiceInterface{
             // 🔥 Add points
             User user = task.getUser();
             user.setPoints(user.getPoints() + 10);
+            updateStreak(user);
+
         }
 
         return mapToResponse(task);
+    }
+
+    private void updateStreak(User user) {
+        LocalDate today = LocalDate.now();
+        LocalDate lastActive=user.getLastActiveDate();
+        if (lastActive==null) {
+            user.setCurrentStreak(1);
+        }
+        else if(lastActive.equals(today.minusDays(1))){
+            user.setCurrentStreak(user.getCurrentStreak()+1);
+        }
+        else if(!lastActive.equals(today)) {
+            user.setCurrentStreak(1);
+        }
+        user.setLastActiveDate(today);
     }
 
 

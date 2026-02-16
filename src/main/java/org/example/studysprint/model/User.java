@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(
@@ -36,6 +37,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Column(name = "last_active_date")
+    private LocalDate lastActiveDate;
+
 
     @Column(nullable = false)
     private int points = 0;

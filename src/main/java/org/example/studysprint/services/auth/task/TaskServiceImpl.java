@@ -4,6 +4,7 @@ package org.example.studysprint.services.auth.task;
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.example.studysprint.dto.dashboard.DashboardResponse;
 import org.example.studysprint.dto.task.CreateTaskRequest;
 import org.example.studysprint.dto.task.TaskResponse;
 import org.example.studysprint.model.Task;
@@ -73,6 +74,24 @@ public class TaskServiceImpl implements TaskServiceInterface{
         return mapToResponse(task);
     }
 
+    @Override
+    public DashboardResponse getDashboard(Long userId) {
+        long total = taskRepository.countByUserId(userId);
+        long completed = taskRepository.countByUserIdAndCompletedTrue(userId);
+        long pending = taskRepository.countByUserIdAndCompletedFalse(userId);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return DashboardResponse.builder()
+                .totalTasks(total)
+                .completedTasks(completed)
+                .pendingTasks(pending)
+                .currentStreak(user.getCurrentStreak())
+                .points(user.getPoints())
+                .build();
+    }
+
     private void updateStreak(User user) {
         LocalDate today = LocalDate.now();
         LocalDate lastActive=user.getLastActiveDate();
@@ -87,6 +106,8 @@ public class TaskServiceImpl implements TaskServiceInterface{
         }
         user.setLastActiveDate(today);
     }
+
+
 
 
     private TaskResponse mapToResponse(Task task) {

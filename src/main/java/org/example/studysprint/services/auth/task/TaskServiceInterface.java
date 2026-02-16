@@ -1,5 +1,6 @@
 package org.example.studysprint.services.auth.task;
 
+import org.example.studysprint.dto.dashboard.DashboardResponse;
 import org.example.studysprint.dto.task.CreateTaskRequest;
 import org.example.studysprint.dto.task.TaskResponse;
 
@@ -11,4 +12,6 @@ public interface TaskServiceInterface {
     List<TaskResponse> getMyTasks(Long userId);
 
     TaskResponse completeTask(Long userId, Long taskId);
+
+    DashboardResponse getDashboard(Long userId);
 }

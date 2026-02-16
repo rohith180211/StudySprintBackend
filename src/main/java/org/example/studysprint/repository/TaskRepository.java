@@ -12,4 +12,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByUserIdAndCompletedFalse(Long userId);
 
     List<Task> findByUserIdAndCompletedTrue(Long userId);
+
+    long countByUserId(Long userId);
+
+    long countByUserIdAndCompletedTrue(Long userId);
+
+    long countByUserIdAndCompletedFalse(Long userId);
+
 }
